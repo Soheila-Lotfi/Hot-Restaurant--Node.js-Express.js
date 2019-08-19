@@ -15,11 +15,12 @@ var PORT = process.env.PORT || 8080;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// html routes
+// html routes and api routes
 
 require("./routes/htmlRoutes")(app);
+require("./routes/apiRoutes")(app);
 
-//
+// start the server
 app.listen(PORT, function() {
   console.log("the server is listening on " + PORT);
 });

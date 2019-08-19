@@ -86,5 +86,27 @@
         </div>
       </footer>
     </div>
+    <script>
+
+         $("#submit").on("click", function(event){
+          event.preventDefault();
+          var data={
+            name: $("#reserve-name").val().trim(),
+           phone: $("#reserve-phone").val().trim(),
+           email: $("#reserve-email").val().trim(),
+            uniqueId: $("#reserve-unique-id").val().trim()
+          }
+
+          var url="/api/tables";
+
+      $.post(url,data,function(){
+                if(data){
+                  alert("You are officially booked!")
+                }
+                else{
+                 alert("you are on the waitlist")
+                }
+      })
+    </script>
   </body>
 </html>
