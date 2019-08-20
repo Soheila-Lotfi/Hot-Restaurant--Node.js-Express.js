@@ -96,27 +96,30 @@
       }
       runTableQuery();
 
-      function runWaitlistQuery() {
+      function runWaitListQuery() {
         var CurrentURL = window.location.origin;
+        $.ajax({ url: CurrentURL + "/api/waitlist", method: "GET" }).then(
+          function(data) {
+            for (i = 0; i < data.length; i++) {
+              var waitListSection = $("<div>");
+              waitListSection.addClass("Well");
+              waitListSection.attr("id", "listnumber-" + i + 1);
+              var tableNumber = i + 1;
+              $("#waitlist").append(waitListSection);
 
-        $.get("/api/waitlist", function(data) {
-          data.forEach((element, index) => {
-            var waitlistSection = $("<div>");
-            waitlistSection.addClass("Well");
-            waitlistSection.attr("id", "numberlist-" + (index + 1));
-            var waitlistNumber = index + 1;
-            $("#numberlist-" + index + 1).append(
-              '<h2><span class="label label-primary">' +
-                waitlistNumber +
-                "</span>|" +
-                data[index].uniqueId +
-                "</h2>"
-            );
-            $("#waitlist").append(waitlistSection);
-          });
-        });
+              $("#listnumber-" + i + 1).append(
+                '<h2><span class="label label-primary">' +
+                  tableNumber +
+                  "</span>|" +
+                  data[i].uniqueId +
+                  "</h2>"
+              );
+            }
+          }
+        );
       }
-      runWaitlistQuery();
+
+      runWaitListQuery();
     </script>
   </body>
 </html>
