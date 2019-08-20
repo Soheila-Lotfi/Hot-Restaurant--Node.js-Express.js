@@ -7,11 +7,11 @@ module.exports = function(app) {
 
     if (tables.length <= 5) {
       tables.push(newTable);
+      return res.json(true);
     } else {
       waitList.push(newTable);
+      return res.json(false);
     }
-
-    return res.json(newTable);
   });
 
   app.get("/api/tables", function(req, res) {

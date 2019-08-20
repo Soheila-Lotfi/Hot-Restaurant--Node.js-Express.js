@@ -69,11 +69,7 @@
                     id="reserve-unique-id"
                   />
                 </div>
-                <button
-                  type="submit"
-                  class="btn btn-primary submit"
-                  id="submit"
-                >
+                <button type="submit" class="btn btn-primary submit">
                   Submit
                 </button>
               </form>
@@ -92,7 +88,7 @@
       </footer>
     </div>
     <script>
-      $("#submit").on("click", function(event) {
+      $(".submit").on("click", function(event) {
         event.preventDefault();
         var newTable = {
           name: $("#reserve-name")
