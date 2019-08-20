@@ -47,9 +47,7 @@
             <div class="card-header">
               <h4>Current Reservations</h4>
             </div>
-            <div class="card-body">
-              <ul id="tableList" class="list-group"></ul>
-            </div>
+            <div class="card-body" id="tablelist"></div>
           </div>
 
           <!-- Waiting List Card -->
@@ -57,9 +55,7 @@
             <div class="card-header">
               <h4>Waiting List</h4>
             </div>
-            <div class="card-body">
-              <ul id="waitlist" class="list-group"></ul>
-            </div>
+            <div class="card-body" id="waitlist"></div>
           </div>
         </div>
       </div>
@@ -78,28 +74,34 @@
     <script>
       function runTableQuery() {
         var CurrentURL = window.location.origin;
-        $.get(CurrentURL + "/api/tables", function(data) {
-          var tableSection = $("<div>");
-          tableSection.addClass("Well");
-          tableSection.attr("id", "number-" + (index + 1));
-          var tableNumber = index + 1;
-          $("#number-" + index + 1).append(
-            '<h2><span class="label label-primary">' +
-              tableNumber +
-              "</span>|" +
-              data[index].uniqueId +
-              "</h2>"
-          );
-        });
+        $.ajax({ url: CurrentURL + "/api/tables", method: "GET" }).then(
+          function(data) {
+            for (i = 0; i < data.length; i++) {
+              var tableSection = $("<div>");
+              tableSection.addClass("Well");
+              tableSection.attr("id", "number-" + i + 1);
+              var tableNumber = i + 1;
+              $("#tablelist").append(tableSection);
+
+              $("#number-" + i + 1).append(
+                '<h2><span class="label label-primary">' +
+                  tableNumber +
+                  "</span>|" +
+                  data[i].uniqueId +
+                  "</h2>"
+              );
+            }
+          }
+        );
       }
       runTableQuery();
 
       function runWaitlistQuery() {
         var CurrentURL = window.location.origin;
 
-        $.get(CurrentURL + "/api/waitlist", function(data) {
+        $.get("/api/waitlist", function(data) {
           data.forEach((element, index) => {
-            var tableSection = $("<div>");
+            var waitlistSection = $("<div>");
             waitlistSection.addClass("Well");
             waitlistSection.attr("id", "numberlist-" + (index + 1));
             var waitlistNumber = index + 1;
@@ -110,6 +112,7 @@
                 data[index].uniqueId +
                 "</h2>"
             );
+            $("#waitlist").append(waitlistSection);
           });
         });
       }
