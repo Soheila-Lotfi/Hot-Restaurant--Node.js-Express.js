@@ -9,6 +9,7 @@
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
     />
+    <script src="https://code.jquery.com/jquery.js"></script>
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
@@ -68,7 +69,11 @@
                     id="reserve-unique-id"
                   />
                 </div>
-                <button type="submit" class="btn btn-primary submit">
+                <button
+                  type="submit"
+                  class="btn btn-primary submit"
+                  id="submit"
+                >
                   Submit
                 </button>
               </form>
@@ -87,26 +92,34 @@
       </footer>
     </div>
     <script>
+      $("#submit").on("click", function(event) {
+        event.preventDefault();
+        var newTable = {
+          name: $("#reserve-name")
+            .val()
+            .trim(),
+          phone: $("#reserve-phone")
+            .val()
+            .trim(),
+          email: $("#reserve-email")
+            .val()
+            .trim(),
+          uniqueId: $("#reserve-unique-id")
+            .val()
+            .trim()
+        };
 
-         $("#submit").on("click", function(event){
-          event.preventDefault();
-          var data={
-            name: $("#reserve-name").val().trim(),
-           phone: $("#reserve-phone").val().trim(),
-           email: $("#reserve-email").val().trim(),
-            uniqueId: $("#reserve-unique-id").val().trim()
+        console.log(newTable);
+        var url = "/api/tables";
+
+        $.post(url, newTable, function(data) {
+          if (data) {
+            alert("You are officially booked!");
+          } else {
+            alert("you are on the waitlist");
           }
-
-          var url="/api/tables";
-
-      $.post(url,data,function(){
-                if(data){
-                  alert("You are officially booked!")
-                }
-                else{
-                 alert("you are on the waitlist")
-                }
-      })
+        });
+      });
     </script>
   </body>
 </html>

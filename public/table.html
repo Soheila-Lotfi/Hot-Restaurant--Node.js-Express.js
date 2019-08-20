@@ -9,6 +9,7 @@
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
     />
+    <script src="https://code.jquery.com/jquery.js"></script>
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
@@ -57,7 +58,7 @@
               <h4>Waiting List</h4>
             </div>
             <div class="card-body">
-              <ul id="waitList" class="list-group"></ul>
+              <ul id="waitlist" class="list-group"></ul>
             </div>
           </div>
         </div>
@@ -74,5 +75,25 @@
         </div>
       </footer>
     </div>
+    <script>
+      function runTableQuery() {
+        $.get("/api/tables", function(data) {
+          data.forEach((element, index) => {
+            $("#tableList").append(data[index].uniqueId);
+          });
+          console.log(data);
+        });
+      }
+      runTableQuery();
+
+      function runWaitList() {
+        $.get("/api/waitlist", function(data) {
+          data.forEach((element, index) => {
+            $("#waitlist").append(data[index].uniqueId);
+          });
+        });
+      }
+      runWaitList();
+    </script>
   </body>
 </html>
