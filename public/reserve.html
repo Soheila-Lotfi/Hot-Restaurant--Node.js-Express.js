@@ -106,13 +106,13 @@
         };
 
         console.log(newTable);
-        var url = "/api/tables";
+        currentURL = window.location.origin;
 
-        $.post(url, newTable, function(data) {
+        $.post(currentURL + "/api/tables", newTable, function(data) {
           if (data) {
             alert("You are officially booked!");
           } else {
-            alert("you are on the waitlist");
+            alert("sorry!You are on the waitlist");
           }
         });
       });
