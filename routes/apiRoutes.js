@@ -7,10 +7,10 @@ module.exports = function(app) {
 
     if (tables.length <= 5) {
       tables.push(newTable);
-      return res.json(true);
+      return res.json(true); // we set up boolean value here, so we can trigger a defualt message to the user ;;alert in the reserve.html
     } else {
       waitList.push(newTable);
-      return res.json(false);
+      return res.json(false); // res.json(false) is the response here.
     }
   });
 

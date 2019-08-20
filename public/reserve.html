@@ -106,7 +106,7 @@
         };
 
         console.log(newTable);
-        currentURL = window.location.origin;
+        currentURL = window.location.origin; // it gives us the current location of where the user is right now, so when you deploy the app in heroku or aother deployment site, you dont need to cahnge the code.
 
         $.post(currentURL + "/api/tables", newTable, function(data) {
           if (data) {

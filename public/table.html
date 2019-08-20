@@ -77,23 +77,43 @@
     </div>
     <script>
       function runTableQuery() {
-        $.get("/api/tables", function(data) {
-          data.forEach((element, index) => {
-            $("#tableList").append(data[index].uniqueId);
-          });
-          console.log(data);
+        var CurrentURL = window.location.origin;
+        $.get(CurrentURL + "/api/tables", function(data) {
+          var tableSection = $("<div>");
+          tableSection.addClass("Well");
+          tableSection.attr("id", "number-" + (index + 1));
+          var tableNumber = index + 1;
+          $("#number-" + index + 1).append(
+            '<h2><span class="label label-primary">' +
+              tableNumber +
+              "</span>|" +
+              data[index].uniqueId +
+              "</h2>"
+          );
         });
       }
       runTableQuery();
 
-      function runWaitList() {
-        $.get("/api/waitlist", function(data) {
+      function runWaitlistQuery() {
+        var CurrentURL = window.location.origin;
+
+        $.get(CurrentURL + "/api/waitlist", function(data) {
           data.forEach((element, index) => {
-            $("#waitlist").append(data[index].uniqueId);
+            var tableSection = $("<div>");
+            waitlistSection.addClass("Well");
+            waitlistSection.attr("id", "numberlist-" + (index + 1));
+            var waitlistNumber = index + 1;
+            $("#numberlist-" + index + 1).append(
+              '<h2><span class="label label-primary">' +
+                waitlistNumber +
+                "</span>|" +
+                data[index].uniqueId +
+                "</h2>"
+            );
           });
         });
       }
-      runWaitList();
+      runWaitlistQuery();
     </script>
   </body>
 </html>
