@@ -64,7 +64,7 @@
         <div class="container">
           <p>Control Panel</p>
           <p>
-            <a href="#">Clear Table</a> |
+            <a href="#" id="clear">Clear Table</a> |
             <a href="/api/tables">API Table Link</a> |
             <a href="/api/waitlist">API Wait List</a>
           </p>
@@ -94,7 +94,6 @@
           }
         );
       }
-      runTableQuery();
 
       function runWaitListQuery() {
         var CurrentURL = window.location.origin;
@@ -119,21 +118,29 @@
         );
       }
 
-      runWaitListQuery();
-
       // This function resets all of the data in our tables. This is intended to let you restart a demo.
       function clearTable() {
-        var currentURL = window.location.origin;
-        $.ajax({ url: currentURL + "/api/clear", method: "POST" });
+        var CurrentURL = window.location.origin;
+        //clear both the server and tables on the browser
+        $.ajax({ url: CurrentURL + "/api/clear", method: "POST" }).then(
+          function() {
+            $("#tablelist").empty();
+            $("#waitlist").empty();
+          }
+        );
       }
 
       $("#clear").on("click", function() {
         alert("Clearing...");
         clearTable();
 
-        // Refresh the page after data is cleared
-        location.reload();
+        // // Refresh the page after data is cleared
+        // location.reload();
       });
+
+      // run queries
+      runTableQuery();
+      runWaitListQuery();
     </script>
   </body>
 </html>

@@ -23,6 +23,8 @@ module.exports = function(app) {
   });
 
   app.post("/api/clear", function(req, res) {
-    res.json();
+    tables.length = 0;
+    waitList.length = 0;
+    res.json({ ok: true });
   });
 };
