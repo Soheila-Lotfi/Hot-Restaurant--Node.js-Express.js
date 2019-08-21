@@ -21,4 +21,8 @@ module.exports = function(app) {
   app.get("/api/waitlist", function(req, res) {
     return res.json(waitList);
   });
+
+  app.post("/api/clear", function(req, res) {
+    res.json();
+  });
 };
